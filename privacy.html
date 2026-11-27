@@ -22,18 +22,20 @@
 <body>
 <main>
   <h1>Privacy policy</h1>
-  <p class="lead">JARVIS personal assistant · effective 27 November 2026</p>
+  <p class="lead">JARVIS personal assistant · effective 27 November 2026 · updated 27 November 2026</p>
 
   <section>
     <h2>Who this covers</h2>
     <p>JARVIS is a private assistant used only by its owner, on their own Windows laptop. There is no JARVIS
-      server, account system or website backend: everything runs on that laptop.</p>
+      server, account system or website backend: everything runs on that laptop, except the optional
+      <strong>JARVIS Cloud</strong> helper described below, which, if the owner sets it up, runs as a script inside
+      the owner's own Google account.</p>
 
     <h2>Google data JARVIS can access</h2>
     <p>Only after the owner signs in with Google and approves it, JARVIS gets read-only access to:</p>
     <ul>
       <li><strong>Gmail</strong> (<code>gmail.readonly</code>): to list, search and read the owner's emails when
-        they ask, and to look for deadlines in recent emails (see below).</li>
+        they ask, and to look for deadlines and payment alerts in recent emails (see below).</li>
       <li><strong>Google Calendar</strong> (<code>calendar.readonly</code>): to list the owner's events when they
         ask, to give a spoken reminder shortly before an event, and to find exams and deadlines among upcoming
         events.</li>
@@ -52,6 +54,25 @@
       sends that text to the AI model to pick out what is due and when. Only the result, a short title, the due
       date and the sender's name, is kept, in a file on the laptop, to give reminders; the email text itself is
       not stored.</p>
+    <p><strong>Expense tracker.</strong> Only when the owner asks ("check my email for payments"), JARVIS reads the
+      subject, sender, date and opening lines of up to 40 emails from the last five weeks that look like bank or UPI
+      payment alerts, and sends that text to the AI model to pick out the amount, the payee and the date of each
+      payment. Only those results are kept, in a file on the laptop; the email text itself is not stored.</p>
+
+    <h2>JARVIS Cloud (optional, while the laptop is off)</h2>
+    <p>If the owner sets it up, a small Google Apps Script runs in the owner's own Google account so their private
+      Telegram bot can still answer them while the laptop is off. It is created and owned by the owner, runs as the
+      owner, and is not operated by anyone else. It has read-only access to the owner's
+      <strong>Google Drive</strong> (<code>drive.readonly</code>), to find files and photos the owner asks for and send
+      them to the owner's Telegram chat, and to their <strong>Google Calendar</strong> (<code>calendar.readonly</code>),
+      to answer "what's on today?" and give a morning briefing. It keeps, in the script's own settings in that account:
+      the Telegram bot token, the owner's Telegram chat ID, the owner's Gemini API key, their city (for the weather),
+      the time zone, the laptop's name and when it was last on, and the titles and due dates of their tracked deadlines (sent by the laptop every minute while it
+      is on, so deadline reminders still arrive). Messages the owner sends while the laptop is off, with file names
+      and calendar entries needed to answer them, are sent to Google Gemini; a short recent history is kept for up to six
+      hours in the script's cache. It answers only the owner's chat and ignores everyone else. It cannot change,
+      delete or upload files, or control the laptop. Deleting the script at
+      <a href="https://script.google.com">script.google.com</a> removes it and everything it keeps.</p>
 
     <h2>AI services</h2>
     <p>To understand a request and word its answer, JARVIS sends the request, and the email or calendar text
@@ -69,7 +90,8 @@
         JARVIS remembers the context after a restart; the "New chat" button in its window empties it.</li>
       <li>If the owner asks from their phone through their own private Telegram bot, the answer is delivered
         to them through Telegram.</li>
-      <li>Nothing is uploaded to any server operated for JARVIS; there is none.</li>
+      <li>Nothing is uploaded to any server operated for JARVIS; there is none. JARVIS Cloud, if set up, lives in
+        the owner's own Google account, as described above.</li>
     </ul>
 
     <h2>Other features (no Google data)</h2>
@@ -77,9 +99,25 @@
       <li><strong>Recordings</strong> ("record this lecture"): the microphone and the laptop's sound are sent in
         chunks to Groq to be turned into text (or transcribed on the laptop when offline), and the transcript is
         sent to the AI model to write notes. The notes, transcript and audio are saved only on the laptop.</li>
-      <li><strong>Camera</strong>: used only while the owner has turned on auto-lock, gestures or posture checks,
-        or when they say "look at this". Camera frames are processed on the laptop and never saved; a "look at
-        this" photo is sent to the AI model to describe it.</li>
+      <li><strong>Camera</strong>: used only while the owner has turned on auto-lock, gestures, posture checks or
+        the intruder alert, or when they say "look at this", "scan this" or ask where the laptop is. Camera frames are
+        processed on the laptop and not saved, except as follows: a "look at this" photo is sent to the AI model to
+        describe it; a scanned page is saved as a PDF on the laptop (in Documents\JARVIS Scans) and not sent anywhere;
+        with the intruder alert on, if someone uses the locked laptop and doesn't unlock it within about 40 seconds,
+        one webcam photo is sent to the owner's own Telegram chat; and when the owner asks "where's my laptop?", a
+        webcam photo and a screenshot are sent to their Telegram chat.</li>
+      <li><strong>Find my laptop</strong>: the location comes from Windows location services if they are on;
+        otherwise ipinfo.io is asked for a rough location, which shares only the laptop's internet address with it.
+        The result is sent only to the owner.</li>
+      <li><strong>File search</strong> ("find the PDF about…"): an index of the text inside documents and photos of
+        pages in the owner's Desktop, Documents, Downloads and Pictures folders is built and kept on the laptop (photos
+        are read with Windows' own text recognition, on the laptop). When the owner searches, the names, folders and
+        short matching extracts of the files found are sent to the AI model so it can answer.</li>
+      <li><strong>Rewriting text</strong> ("fix the grammar", "make this formal"): the text the owner has selected is
+        sent to the AI model, and the result is pasted back or left on the clipboard.</li>
+      <li><strong>Expenses</strong> the owner tells JARVIS about are kept only in a file on the laptop.
+        <strong>Tidying Downloads</strong> moves files between folders on the laptop and keeps a list of the moves
+        so they can be undone; removed duplicates and installers go to the Recycle Bin.</li>
       <li><strong>Song recognition</strong>: a few seconds of audio are turned into a fingerprint on the laptop
         and sent to Shazam to identify the song.</li>
       <li><strong>Screen time</strong> is worked out on the laptop from the name of the app in use (never window
