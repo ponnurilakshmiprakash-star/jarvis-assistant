@@ -22,7 +22,7 @@
 <body>
 <main>
   <h1>Privacy policy</h1>
-  <p class="lead">JARVIS personal assistant · effective 27 November 2026 · updated 27 November 2026</p>
+  <p class="lead">JARVIS personal assistant · effective 27 November 2026 · updated 28 November 2026</p>
 
   <section>
     <h2>Who this covers</h2>
@@ -144,12 +144,39 @@
       <li><strong>Deep think and background research</strong>: the question, and for research the web pages read,
         are sent to the AI models (deep think asks up to three providers at the same time). Research reports are
         saved on the laptop in the JARVIS Notes folder.</li>
+      <li><strong>Share prices</strong> ("what's Reliance at?", the watchlist, price alerts, paper trading): only the
+        names or symbols of the shares and indices looked up are sent to Yahoo Finance to get their prices. The
+        watchlist, price alerts, the holdings the owner types in and the pretend-money paper trading account are kept
+        only in a file on the laptop.</li>
+      <li><strong>Upstox share trading</strong> (only if the owner connects it): the owner signs in on Upstox's own
+        page in their browser; JARVIS never sees their password or PIN. JARVIS keeps only the day's sign-in token, on
+        the laptop, encrypted with the owner's Windows login (Windows DPAPI), and uses it only to talk to Upstox: to
+        show the owner's holdings, positions, funds and orders, and to place or cancel an order the owner asked for.
+        Every order and every cancellation is read back and needs the owner's own yes; routines, background jobs and
+        other people's voices cannot trade. A record of each order attempt is kept in a file on the laptop.</li>
+      <li><strong>Calls to the owner's phone</strong> ("call me in 20 minutes"): the short message to read out and
+        the owner's Telegram username (or phone number) are sent to CallMeBot, an independent free service that is
+        not part of Telegram, so it can ring the owner on Telegram and read the message aloud. Only the owner is
+        ever called this way.</li>
+      <li><strong>Marketing and leads</strong>: the business profile and the leads the owner records (names, contact
+        details, notes and follow-up dates) are kept only in files on the laptop, and written content is saved in the
+        owner's Documents folder. When the owner asks for writing, their request and the business profile are sent to
+        the AI model; for a follow-up draft, that lead's name and notes are sent too. JARVIS never sends anything to a
+        lead by itself. Market research works like background research above.</li>
+      <li><strong>Websites</strong> ("build a website for…"): the owner's description, and the current page when they
+        ask for a change, are sent to the AI model, which writes the page; sites are kept in the owner's Documents
+        folder. Only when the owner says "publish" and confirms is a site, with the photos the owner added to it,
+        copied to the owner's own GitHub Pages repository, where it becomes public. "Take it down" removes it.</li>
+      <li><strong>Holo desk</strong> (the full-screen dashboard): it is served only to the laptop itself and only to
+        windows JARVIS opens. Besides what JARVIS already fetches for the owner (the weather, their calendar), it
+        fetches only market prices for its Markets panel, and only while it is open.</li>
     </ul>
 
     <h2>Removing access</h2>
     <p>Saying "disconnect my Google account" revokes the token at Google and deletes it from the laptop. Access
       can also be removed at any time at
-      <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</p>
+      <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.
+      Saying "disconnect Upstox" signs JARVIS out at Upstox and deletes its sign-in from the laptop.</p>
 
     <h2>Changes</h2>
     <p>If this policy changes, this page will be updated and its date changed.</p>
