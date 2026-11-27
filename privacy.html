@@ -33,9 +33,10 @@
     <p>Only after the owner signs in with Google and approves it, JARVIS gets read-only access to:</p>
     <ul>
       <li><strong>Gmail</strong> (<code>gmail.readonly</code>): to list, search and read the owner's emails when
-        they ask.</li>
+        they ask, and to look for deadlines in recent emails (see below).</li>
       <li><strong>Google Calendar</strong> (<code>calendar.readonly</code>): to list the owner's events when they
-        ask, and to give a spoken reminder shortly before an event.</li>
+        ask, to give a spoken reminder shortly before an event, and to find exams and deadlines among upcoming
+        events.</li>
     </ul>
     <p>JARVIS cannot send, delete, modify, label or mark emails as read, and cannot create or change calendar
       events.</p>
@@ -44,13 +45,20 @@
     <p>Email and calendar data is used only to answer the owner's own requests (for example "any new emails?",
       "read the one from the bank", "what's on tomorrow?") and for event reminders. It is not used for
       advertising, not sold, and not shared with anyone other than as described below.</p>
+    <p><strong>Deadline tracker.</strong> When the owner asks ("any deadlines in my email?"), or once each morning
+      if they have turned that on ("check my email for deadlines every morning"; "stop checking" turns it off),
+      JARVIS reads the subject, sender, date and opening lines of up to 25 emails from the last three weeks that mention
+      words such as deadline, due, exam or fee, plus the titles of upcoming calendar events with such words, and
+      sends that text to the AI model to pick out what is due and when. Only the result, a short title, the due
+      date and the sender's name, is kept, in a file on the laptop, to give reminders; the email text itself is
+      not stored.</p>
 
     <h2>AI services</h2>
     <p>To understand a request and word its answer, JARVIS sends the request, and the email or calendar text
       needed to answer it, to the AI model it is using at that moment: Google Gemini, Groq or OpenRouter, or a
       model that runs on the laptop itself when offline. This happens only when the owner asks about their email
-      or calendar. These providers handle that text under their own terms; on free plans, a provider may use
-      submitted content to improve its services.</p>
+      or calendar, or for the daily deadline check if the owner has turned it on. These providers handle that text
+      under their own terms; on free plans, a provider may use submitted content to improve its services.</p>
 
     <h2>What is stored, and where</h2>
     <ul>
@@ -62,6 +70,24 @@
       <li>If the owner asks from their phone through their own private Telegram bot, the answer is delivered
         to them through Telegram.</li>
       <li>Nothing is uploaded to any server operated for JARVIS; there is none.</li>
+    </ul>
+
+    <h2>Other features (no Google data)</h2>
+    <ul>
+      <li><strong>Recordings</strong> ("record this lecture"): the microphone and the laptop's sound are sent in
+        chunks to Groq to be turned into text (or transcribed on the laptop when offline), and the transcript is
+        sent to the AI model to write notes. The notes, transcript and audio are saved only on the laptop.</li>
+      <li><strong>Camera</strong>: used only while the owner has turned on auto-lock, gestures or posture checks,
+        or when they say "look at this". Camera frames are processed on the laptop and never saved; a "look at
+        this" photo is sent to the AI model to describe it.</li>
+      <li><strong>Song recognition</strong>: a few seconds of audio are turned into a fingerprint on the laptop
+        and sent to Shazam to identify the song.</li>
+      <li><strong>Screen time</strong> is worked out on the laptop from the name of the app in use (never window
+        titles or page contents) and kept on the laptop for 60 days. <strong>Clipboard history</strong> is kept in
+        memory only, never written to disk or sent anywhere, and skips passwords and anything a password manager
+        marks as private.</li>
+      <li><strong>Pictures</strong> ("draw…"): the description is sent to Pollinations (or Google Gemini) to make
+        the picture, which is saved on the laptop.</li>
     </ul>
 
     <h2>Removing access</h2>
